@@ -1,5 +1,7 @@
 package dessy.model
 
 trait EnumeratedValueType extends ValueType {
-  val enumerations: Set[BooleanValueType]
+  type AnyBooleanValueType <: BooleanValueType
+
+  val enumerations: Set[AnyBooleanValueType]
 }

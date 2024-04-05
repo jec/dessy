@@ -3,6 +3,9 @@ package dessy.tree
 import dessy.traversal
 
 trait Step {
-  def traverse(ctx: traversal.Context): traversal.Result
-  def nextStep(): Step
+  type AnyResult <: traversal.Result
+  type AnyStep <: Step
+  
+  def traverse(ctx: traversal.Context): AnyResult
+  def nextStep(): AnyStep
 }

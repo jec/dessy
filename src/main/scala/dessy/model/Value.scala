@@ -1,6 +1,7 @@
 package dessy.model
 
 trait Value {
-  val valueType: ValueType
-  val value: String
+  type AnyValueType <: ValueType
+  
+  val valueType: AnyValueType
 }

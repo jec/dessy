@@ -1,5 +1,9 @@
 package dessy.traversal
 
-trait Context {
+import dessy.model.Value
 
+trait Context {
+  type AnyValue <: Value
+  
+  val values: Set[AnyValue]
 }
