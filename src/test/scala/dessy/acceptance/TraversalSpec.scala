@@ -1,6 +1,6 @@
 package dessy.acceptance
 
-import dessy.model.{BooleanValueType, EnumeratedValueType, IsBoolean, IsBooleanType, IsEnumerated, IsEnumeratedType, Tree, Value, ValueType}
+import dessy.model._
 import dessy.traversal.Context
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.*
@@ -8,12 +8,24 @@ import org.scalatest.matchers.should.*
 class TraversalSpec extends AnyWordSpec with Matchers {
   class Guideline extends Tree
   trait ObservationType extends ValueType
-  case class BooleanObservationType(cname: String, name: String, tree: Guideline) extends ValueType with IsBooleanType with ObservationType
-  case class EnumeratedObservationType(cname: String, name: String, tree: Guideline, enumerations: Set[BooleanObservationType]) extends ValueType with IsEnumeratedType with ObservationType
+  case class BooleanObservationType(cname: String, name: String, tree: Guideline) extends ValueType with IsBooleanType with ObservationType {
+    override type AnyTree = Guideline
+  }
+  case class EnumeratedObservationType(cname: String, name: String, tree: Guideline, enumerations: Set[BooleanObservationType]) extends ValueType with IsEnumeratedType with ObservationType {
+    override type AnyTree = Guideline
+    override type AnyBooleanType = BooleanObservationType
+  }
   trait Observation extends Value
-  case class BooleanObservation(valueType: BooleanObservationType, value: Boolean) extends Value with IsBoolean
-  case class EnumeratedObservation(valueType: EnumeratedObservationType, value: String) extends Value with IsEnumerated
-  case class TestContext(values: Set[Observation]) extends Context
+  case class BooleanObservation(valueType: BooleanObservationType, value: Boolean) extends Value with IsBoolean {
+    override type AnyValueType = BooleanObservationType
+  }
+  case class EnumeratedObservation(valueType: EnumeratedObservationType, value: BooleanObservationType) extends Value with IsEnumerated {
+    override type AnyValueType = EnumeratedObservationType
+    override type AnyBooleanType = BooleanObservationType
+  }
+  case class TestContext(values: Set[Observation]) extends Context {
+    override type AnyValue = Observation
+  }
 
   private val sneakerGuideline = Guideline()
   private val basketballSneaker = BooleanObservationType("basketball", "Basketball sneaker", sneakerGuideline)

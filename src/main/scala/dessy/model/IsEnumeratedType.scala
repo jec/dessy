@@ -1,7 +1,6 @@
 package dessy.model
 
 trait IsEnumeratedType {
-  type AnyBooleanValueType <: BooleanValueType
-
-  val enumerations: Set[IsBooleanType]
+  type AnyBooleanType <: IsBooleanType
+  val enumerations: Set[AnyBooleanType]
 }
