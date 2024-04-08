@@ -1,5 +1,6 @@
 package dessy.model
 
-trait Tree {
+import dessy.tree.Step
 
+trait Tree {
 }
