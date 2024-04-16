@@ -7,7 +7,5 @@ package dessy.model
  * a given ValueType.
  */
 trait Value {
-  type AnyValueType <: ValueType
-
-  val valueType: AnyValueType
+  val valueType: ValueType
 }

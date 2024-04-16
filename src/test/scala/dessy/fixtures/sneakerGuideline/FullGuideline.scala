@@ -2,6 +2,7 @@ package dessy.fixtures.sneakerGuideline
 
 import dessy.model._
 import dessy.traversal.Context
+import dessy.tree
 
 /**
  * Includes the full "Sneaker Guideline"
@@ -27,7 +28,6 @@ trait FullGuideline {
    * @param tree
    */
   case class BooleanObservationType(cname: String, name: String, tree: Guideline) extends ValueType, IsBooleanType, ObservationType {
-    override type AnyTree = Guideline
   }
 
   /**
@@ -40,7 +40,6 @@ trait FullGuideline {
    * @param enumerations
    */
   case class EnumeratedObservationType(cname: String, name: String, tree: Guideline, enumerations: Set[BooleanObservationType]) extends ValueType, IsEnumeratedType, ObservationType {
-    override type AnyTree = Guideline
     override type AnyBooleanType = BooleanObservationType
   }
 
@@ -56,7 +55,6 @@ trait FullGuideline {
    * @param value
    */
   case class BooleanObservation(valueType: BooleanObservationType, value: Boolean) extends Value, IsBoolean {
-    override type AnyValueType = BooleanObservationType
   }
 
   /**
@@ -67,7 +65,6 @@ trait FullGuideline {
    * @param value
    */
   case class EnumeratedObservation(valueType: EnumeratedObservationType, value: BooleanObservationType) extends Value, IsEnumerated {
-    override type AnyValueType = EnumeratedObservationType
     override type AnyBooleanType = BooleanObservationType
   }
 
@@ -80,6 +77,8 @@ trait FullGuideline {
   case class TestContext(values: Set[Observation]) extends Context {
     override type AnyValue = Observation
   }
+
+  private val decisionStep = tree.DecisionStep()
 
   private val sneakerGuideline = Guideline()
 
