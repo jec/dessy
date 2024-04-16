@@ -10,5 +10,5 @@ trait ValueType {
   val cname: String
   val name: String
   val uuid: String = java.util.UUID.randomUUID.toString
-  val tree: Tree
+//  val tree: Tree
 }

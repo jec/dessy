@@ -25,9 +25,8 @@ trait FullGuideline {
    *
    * @param cname
    * @param name
-   * @param tree
    */
-  case class BooleanObservationType(cname: String, name: String, tree: Guideline) extends ValueType, IsBooleanType, ObservationType {
+  case class BooleanObservationType(cname: String, name: String) extends ValueType, IsBooleanType, ObservationType {
   }
 
   /**
@@ -36,10 +35,9 @@ trait FullGuideline {
    *
    * @param cname
    * @param name
-   * @param tree
    * @param enumerations
    */
-  case class EnumeratedObservationType(cname: String, name: String, tree: Guideline, enumerations: Set[BooleanObservationType]) extends ValueType, IsEnumeratedType, ObservationType {
+  case class EnumeratedObservationType(cname: String, name: String, enumerations: Set[BooleanObservationType]) extends ValueType, IsEnumeratedType, ObservationType {
     override type AnyBooleanType = BooleanObservationType
   }
 
@@ -82,13 +80,13 @@ trait FullGuideline {
 
   private val sneakerGuideline = Guideline()
 
-  private val basketballSneaker = BooleanObservationType("basketball", "Basketball sneaker", sneakerGuideline)
-  private val runningSneaker = BooleanObservationType("running", "Running sneaker", sneakerGuideline)
-  private val sneakerType = EnumeratedObservationType("sneaker-type", "Sneaker type", sneakerGuideline, Set(basketballSneaker, runningSneaker))
+  private val basketballSneaker = BooleanObservationType("basketball", "Basketball sneaker")
+  private val runningSneaker = BooleanObservationType("running", "Running sneaker")
+  private val sneakerType = EnumeratedObservationType("sneaker-type", "Sneaker type", Set(basketballSneaker, runningSneaker))
 
-  private val dicksSportingGoods = BooleanObservationType("dicks-sporting-goods", "Dick's Sporting Goods", sneakerGuideline)
-  private val champsSports = BooleanObservationType("champs-sports", "Champs Sports", sneakerGuideline)
-  private val sneakerStore = EnumeratedObservationType("sneaker-store", "Sneaker store", sneakerGuideline, Set(dicksSportingGoods, champsSports))
+  private val dicksSportingGoods = BooleanObservationType("dicks-sporting-goods", "Dick's Sporting Goods")
+  private val champsSports = BooleanObservationType("champs-sports", "Champs Sports")
+  private val sneakerStore = EnumeratedObservationType("sneaker-store", "Sneaker store", Set(dicksSportingGoods, champsSports))
 
   private val isRunningSneaker = BooleanObservation(runningSneaker, true)
 }
