@@ -2,7 +2,7 @@ package dessy.fixtures.sneakerGuideline
 
 import dessy.model._
 import dessy.traversal.Context
-import dessy.tree
+import dessy.tree.DecisionStep
 
 /**
  * Includes the full "Sneaker Guideline"
@@ -76,10 +76,6 @@ trait FullGuideline {
     override type AnyValue = Observation
   }
 
-  private val decisionStep = tree.DecisionStep()
-
-  private val sneakerGuideline = Guideline()
-
   private val basketballSneaker = BooleanObservationType("basketball", "Basketball sneaker")
   private val runningSneaker = BooleanObservationType("running", "Running sneaker")
   private val sneakerType = EnumeratedObservationType("sneaker-type", "Sneaker type", Set(basketballSneaker, runningSneaker))
@@ -89,4 +85,12 @@ trait FullGuideline {
   private val sneakerStore = EnumeratedObservationType("sneaker-store", "Sneaker store", Set(dicksSportingGoods, champsSports))
 
   private val isRunningSneaker = BooleanObservation(runningSneaker, true)
+
+  private val decisionStep = DecisionStep(
+    /* Seq(
+      Choice()
+    ) */
+  )
+
+  private val sneakerGuideline = Guideline()
 }
